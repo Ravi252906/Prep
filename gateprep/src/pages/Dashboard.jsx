@@ -160,22 +160,22 @@ function Dashboard() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50">
+    <div className="min-h-screen bg-slate-50 dark:bg-slate-950">
       <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
 
         {/* =====================================
             WELCOME HEADER
         ====================================== */}
         <section className="mb-6">
-          <p className="mb-1 text-sm font-semibold text-blue-600">
+          <p className="mb-1 text-sm font-semibold text-blue-600 dark:text-blue-400">
             GATE CS / IT PREPARATION
           </p>
 
-          <h1 className="text-2xl font-bold tracking-tight text-slate-900 sm:text-3xl">
+          <h1 className="text-2xl font-bold tracking-tight text-slate-900 dark:text-slate-100 sm:text-3xl">
             Good afternoon, Ravi 👋
           </h1>
 
-          <p className="mt-1 text-sm text-slate-500 sm:text-base">
+          <p className="mt-1 text-sm text-slate-500 dark:text-slate-400 sm:text-base">
             Let's continue your GATE preparation.
           </p>
         </section>

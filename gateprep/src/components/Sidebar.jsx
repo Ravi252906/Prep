@@ -99,8 +99,8 @@ const Sidebar = ({
           duration-200
           ${
             isActive
-              ? "bg-blue-50 text-blue-700"
-              : "text-slate-600 hover:bg-slate-50 hover:text-slate-900"
+              ? "bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-400"
+              : "text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-slate-100"
           }
         `}
       >
@@ -216,6 +216,8 @@ const Sidebar = ({
           border-r
           border-slate-200
           bg-white
+          dark:bg-slate-900
+          dark:border-slate-700
           shadow-sm
           transition-all
           duration-300
@@ -247,6 +249,7 @@ const Sidebar = ({
             justify-between
             border-b
             border-slate-100
+            dark:border-slate-700
             px-4
           "
         >
@@ -272,11 +275,11 @@ const Sidebar = ({
               </div>
 
               <div>
-                <h1 className="text-lg font-bold tracking-tight text-slate-900">
+                <h1 className="text-lg font-bold tracking-tight text-slate-900 dark:text-slate-100">
                   GATEPrep
                 </h1>
 
-                <p className="text-[10px] font-medium text-slate-400">
+                <p className="text-[10px] font-medium text-slate-400 dark:text-slate-500">
                   GATE CS / IT
                 </p>
               </div>
@@ -358,6 +361,7 @@ const Sidebar = ({
             flex-shrink-0
             border-t
             border-slate-100
+            dark:border-slate-700
             p-3
           "
         >

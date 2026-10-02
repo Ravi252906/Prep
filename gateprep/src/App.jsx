@@ -6,6 +6,10 @@ import {
   useLocation,
 } from "react-router-dom";
 
+// Context Providers
+import { SettingsProvider } from "./context/SettingsContext";
+import { ToastProvider } from "./components/ui/Toast";
+
 // Layout Components
 import Sidebar from "./components/Sidebar";
 import Navbar from "./components/Navbar";
@@ -160,7 +164,7 @@ function AppContent() {
   }
 
   return (
-    <div className="min-h-screen bg-slate-50">
+    <div className="min-h-screen bg-slate-50 dark:bg-slate-950">
       {/* =========================
           SIDEBAR
       ========================= */}
@@ -286,9 +290,13 @@ function AppContent() {
 // =========================
 function App() {
   return (
-    <Router>
-      <AppContent />
-    </Router>
+    <SettingsProvider>
+      <ToastProvider>
+        <Router>
+          <AppContent />
+        </Router>
+      </ToastProvider>
+    </SettingsProvider>
   );
 }
 
