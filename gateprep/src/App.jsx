@@ -17,6 +17,9 @@ import SubjectDetail from "./pages/SubjectDetail";
 import Practice from "./pages/Practice";
 import PracticeSession from "./pages/PracticeSession";
 import MockTests from "./pages/MockTests";
+import MockTestInstructions from "./pages/MockTestInstructions";
+import MockTestExam from "./pages/MockTestExam";
+import MockTestResult from "./pages/MockTestResult";
 import Analytics from "./pages/Analytics";
 import Planner from "./pages/Planner";
 import Notes from "./pages/Notes";
@@ -28,6 +31,11 @@ function AppContent() {
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
 
   const location = useLocation();
+
+  // Check if we're on the exam page (full screen mode)
+  const isExamPage = location.pathname.match(/^\/mock-tests\/[^/]+$/) && 
+                     !location.pathname.includes('/instructions') && 
+                     !location.pathname.includes('/result');
 
   // =========================
   // PAGE TITLE
@@ -58,6 +66,17 @@ function AppContent() {
       "/settings": "Settings",
       "/profile": "Profile",
     };
+
+    // Mock test routes
+    if (pathname.startsWith("/mock-tests/") && pathname !== "/mock-tests") {
+      if (pathname.includes("/instructions")) {
+        return "Test Instructions";
+      }
+      if (pathname.includes("/result")) {
+        return "Test Result";
+      }
+      return "Mock Test Exam";
+    }
 
     return titles[pathname] || "Dashboard";
   };
@@ -101,6 +120,19 @@ function AppContent() {
       ];
     }
 
+    // Mock Test Session
+    if (paths[0] === "mock-tests" && paths.length > 1) {
+      const breadcrumbs = ["Dashboard", "Mock Tests"];
+      if (paths[1] === "instructions") {
+        breadcrumbs.push("Test Instructions");
+      } else if (paths[1] === "result") {
+        breadcrumbs.push("Test Result");
+      } else {
+        breadcrumbs.push("Mock Test Exam");
+      }
+      return breadcrumbs;
+    }
+
     // Other pages
     return [
       "Dashboard",
@@ -115,6 +147,17 @@ function AppContent() {
       ),
     ];
   };
+
+  if (isExamPage) {
+    return (
+      <Routes>
+        <Route
+          path="/mock-tests/:testId"
+          element={<MockTestExam />}
+        />
+      </Routes>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-slate-50">
@@ -188,6 +231,18 @@ function AppContent() {
             <Route
               path="/mock-tests"
               element={<MockTests />}
+            />
+
+            {/* Mock Test Instructions */}
+            <Route
+              path="/mock-tests/:testId/instructions"
+              element={<MockTestInstructions />}
+            />
+
+            {/* Mock Test Result */}
+            <Route
+              path="/mock-tests/:testId/result"
+              element={<MockTestResult />}
             />
 
             {/* Analytics */}
