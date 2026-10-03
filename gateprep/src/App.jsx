@@ -8,6 +8,7 @@ import {
 
 // Context Providers
 import { SettingsProvider } from "./context/SettingsContext";
+import { AnalyticsProvider } from "./context/AnalyticsContext";
 import { ToastProvider } from "./components/ui/Toast";
 
 // Layout Components
@@ -291,11 +292,13 @@ function AppContent() {
 function App() {
   return (
     <SettingsProvider>
-      <ToastProvider>
-        <Router>
-          <AppContent />
-        </Router>
-      </ToastProvider>
+      <AnalyticsProvider>
+        <ToastProvider>
+          <Router>
+            <AppContent />
+          </Router>
+        </ToastProvider>
+      </AnalyticsProvider>
     </SettingsProvider>
   );
 }
