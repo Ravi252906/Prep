@@ -13,6 +13,20 @@ export const subjects = [
     lastStudied: '2 days ago',
     category: 'Core CS',
     color: 'bg-blue-500',
+    topics: [
+      { id: 1, name: 'Arrays', progress: 80 },
+      { id: 2, name: 'Linked Lists', progress: 75 },
+      { id: 3, name: 'Stacks', progress: 70 },
+      { id: 4, name: 'Queues', progress: 85 },
+      { id: 5, name: 'Trees', progress: 60 },
+      { id: 6, name: 'Graphs', progress: 55 },
+      { id: 7, name: 'Hashing', progress: 70 },
+      { id: 8, name: 'Sorting', progress: 90 },
+      { id: 9, name: 'Searching', progress: 85 },
+      { id: 10, name: 'Dynamic Programming', progress: 50 },
+      { id: 11, name: 'Greedy Algorithms', progress: 65 },
+      { id: 12, name: 'Backtracking', progress: 40 },
+    ],
   },
   {
     id: 2,
@@ -28,6 +42,17 @@ export const subjects = [
     lastStudied: '1 day ago',
     category: 'Core CS',
     color: 'bg-purple-500',
+    topics: [
+      { id: 1, name: 'Time Complexity', progress: 75 },
+      { id: 2, name: 'Space Complexity', progress: 70 },
+      { id: 3, name: 'Divide and Conquer', progress: 65 },
+      { id: 4, name: 'Dynamic Programming', progress: 55 },
+      { id: 5, name: 'Greedy Algorithms', progress: 60 },
+      { id: 6, name: 'Graph Algorithms', progress: 50 },
+      { id: 7, name: 'Sorting Algorithms', progress: 80 },
+      { id: 8, name: 'Searching Algorithms', progress: 75 },
+      { id: 9, name: 'String Algorithms', progress: 45 },
+    ],
   },
   {
     id: 3,
@@ -43,6 +68,14 @@ export const subjects = [
     lastStudied: '1 week ago',
     category: 'Core CS',
     color: 'bg-indigo-500',
+    topics: [
+      { id: 1, name: 'Boolean Algebra', progress: 60 },
+      { id: 2, name: 'Logic Gates', progress: 55 },
+      { id: 3, name: 'Combinational Circuits', progress: 50 },
+      { id: 4, name: 'Sequential Circuits', progress: 45 },
+      { id: 5, name: 'Number Systems', progress: 70 },
+      { id: 6, name: 'K-Maps', progress: 40 },
+    ],
   },
   {
     id: 4,
@@ -58,6 +91,13 @@ export const subjects = [
     lastStudied: '2 weeks ago',
     category: 'Core CS',
     color: 'bg-cyan-500',
+    topics: [
+      { id: 1, name: 'Processor Architecture', progress: 50 },
+      { id: 2, name: 'Pipelining', progress: 40 },
+      { id: 3, name: 'Cache Memory', progress: 45 },
+      { id: 4, name: 'Virtual Memory', progress: 35 },
+      { id: 5, name: 'I/O Organization', progress: 30 },
+    ],
   },
   {
     id: 5,
@@ -73,6 +113,16 @@ export const subjects = [
     lastStudied: '5 days ago',
     category: 'Core CS',
     color: 'bg-green-500',
+    topics: [
+      { id: 1, name: 'Process Management', progress: 60 },
+      { id: 2, name: 'Thread Management', progress: 55 },
+      { id: 3, name: 'CPU Scheduling', progress: 65 },
+      { id: 4, name: 'Deadlock', progress: 50 },
+      { id: 5, name: 'Memory Management', progress: 45 },
+      { id: 6, name: 'File Systems', progress: 55 },
+      { id: 7, name: 'I/O Systems', progress: 50 },
+      { id: 8, name: 'Synchronization', progress: 40 },
+    ],
   },
   {
     id: 6,
@@ -88,6 +138,15 @@ export const subjects = [
     lastStudied: '3 days ago',
     category: 'Core CS',
     color: 'bg-orange-500',
+    topics: [
+      { id: 1, name: 'ER Model', progress: 60 },
+      { id: 2, name: 'Relational Model', progress: 55 },
+      { id: 3, name: 'SQL', progress: 70 },
+      { id: 4, name: 'Normalization', progress: 50 },
+      { id: 5, name: 'Transactions', progress: 45 },
+      { id: 6, name: 'Concurrency Control', progress: 40 },
+      { id: 7, name: 'Indexing', progress: 35 },
+    ],
   },
   {
     id: 7,
@@ -103,6 +162,14 @@ export const subjects = [
     lastStudied: '1 week ago',
     category: 'Core CS',
     color: 'bg-pink-500',
+    topics: [
+      { id: 1, name: 'OSI Model', progress: 55 },
+      { id: 2, name: 'TCP/IP', progress: 50 },
+      { id: 3, name: 'Routing', progress: 45 },
+      { id: 4, name: 'Flow Control', progress: 40 },
+      { id: 5, name: 'Congestion Control', progress: 35 },
+      { id: 6, name: 'Application Layer', progress: 50 },
+    ],
   },
   {
     id: 8,
@@ -118,6 +185,12 @@ export const subjects = [
     lastStudied: '2 weeks ago',
     category: 'Core CS',
     color: 'bg-violet-500',
+    topics: [
+      { id: 1, name: 'Finite Automata', progress: 40 },
+      { id: 2, name: 'Regular Languages', progress: 35 },
+      { id: 3, name: 'Context-Free Grammars', progress: 30 },
+      { id: 4, name: 'Turing Machines', progress: 25 },
+    ],
   },
   {
     id: 9,
@@ -133,6 +206,11 @@ export const subjects = [
     lastStudied: '3 weeks ago',
     category: 'Core CS',
     color: 'bg-teal-500',
+    topics: [
+      { id: 1, name: 'Lexical Analysis', progress: 35 },
+      { id: 2, name: 'Parsing', progress: 30 },
+      { id: 3, name: 'Code Generation', progress: 25 },
+    ],
   },
   {
     id: 10,
@@ -148,6 +226,16 @@ export const subjects = [
     lastStudied: '4 days ago',
     category: 'Mathematics',
     color: 'bg-rose-500',
+    topics: [
+      { id: 1, name: 'Linear Algebra', progress: 60 },
+      { id: 2, name: 'Calculus', progress: 55 },
+      { id: 3, name: 'Probability', progress: 50 },
+      { id: 4, name: 'Discrete Math', progress: 45 },
+      { id: 5, name: 'Graph Theory', progress: 40 },
+      { id: 6, name: 'Combinatorics', progress: 55 },
+      { id: 7, name: 'Number Theory', progress: 35 },
+      { id: 8, name: 'Set Theory', progress: 50 },
+    ],
   },
   {
     id: 11,
@@ -163,5 +251,14 @@ export const subjects = [
     lastStudied: '1 day ago',
     category: 'Aptitude',
     color: 'bg-amber-500',
+    topics: [
+      { id: 1, name: 'Verbal Ability', progress: 70 },
+      { id: 2, name: 'Numerical Ability', progress: 65 },
+      { id: 3, name: 'Logical Reasoning', progress: 60 },
+      { id: 4, name: 'Data Interpretation', progress: 55 },
+      { id: 5, name: 'Puzzles', progress: 50 },
+    ],
   },
 ];
+
+export const subjectsData = subjects;

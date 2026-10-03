@@ -33,6 +33,29 @@ const Sidebar = ({
     },
   ];
 
+  const learningNavItems = [
+    {
+      path: "/concepts",
+      label: "Concept Library",
+      icon: "BookOpen",
+    },
+    {
+      path: "/formulas",
+      label: "Formula Book",
+      icon: "FileText",
+    },
+    {
+      path: "/roadmap",
+      label: "Roadmap",
+      icon: "LayoutDashboard",
+    },
+    {
+      path: "/pyq-intelligence",
+      label: "PYQ Intelligence",
+      icon: "BarChart3",
+    },
+  ];
+
   const analysisNavItems = [
     {
       path: "/analytics",
@@ -40,9 +63,19 @@ const Sidebar = ({
       icon: "BarChart3",
     },
     {
+      path: "/ai-report",
+      label: "AI Report",
+      icon: "FileText",
+    },
+    {
       path: "/planner",
       label: "Study Planner",
       icon: "Calendar",
+    },
+    {
+      path: "/preparation-pace",
+      label: "Preparation Pace",
+      icon: "TrendingUp",
     },
     {
       path: "/revision",
@@ -53,6 +86,34 @@ const Sidebar = ({
       path: "/mistakes",
       label: "Mistake Book",
       icon: "AlertTriangle",
+    },
+  ];
+
+  const aiNavItems = [
+    {
+      path: "/assistant",
+      label: "AI Study Copilot",
+      icon: "Brain",
+    },
+    {
+      path: "/bookmarks",
+      label: "Bookmarks",
+      icon: "Star",
+    },
+    {
+      path: "/doubts",
+      label: "Doubt Notebook",
+      icon: "MessageSquare",
+    },
+    {
+      path: "/test-builder",
+      label: "Custom Test Builder",
+      icon: "Sliders",
+    },
+    {
+      path: "/focus",
+      label: "Focus Mode",
+      icon: "Clock",
     },
   ];
 
@@ -375,8 +436,20 @@ const Sidebar = ({
           />
 
           <NavGroup
+            title="Learning"
+            items={learningNavItems}
+            isCollapsed={isCollapsed}
+          />
+
+          <NavGroup
             title="Analysis"
             items={analysisNavItems}
+            isCollapsed={isCollapsed}
+          />
+
+          <NavGroup
+            title="AI & Tools"
+            items={aiNavItems}
             isCollapsed={isCollapsed}
           />
 

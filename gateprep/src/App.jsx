@@ -14,6 +14,11 @@ import { GamificationProvider } from "./context/GamificationContext";
 import { NotificationProvider } from "./context/NotificationContext";
 import { StudySessionProvider } from "./context/StudySessionContext";
 import { MistakesProvider } from "./context/MistakesContext";
+import { BookmarkProvider } from "./context/BookmarkContext";
+import { DoubtProvider } from "./context/DoubtContext";
+import { AIProvider } from "./context/AIContext";
+import { ConceptProvider } from "./context/ConceptContext";
+import { CustomTestProvider } from "./context/CustomTestContext";
 import { ToastProvider } from "./components/ui/Toast";
 
 // Layout Components
@@ -41,6 +46,20 @@ import Mistakes from "./pages/Mistakes";
 import Achievements from "./pages/Achievements";
 import Notifications from "./pages/Notifications";
 import StudyTimer from "./pages/StudyTimer";
+import Assistant from "./pages/Assistant";
+import AIReport from "./pages/AIReport";
+import Concepts from "./pages/Concepts";
+import ConceptDetail from "./pages/ConceptDetail";
+import Formulas from "./pages/Formulas";
+import Roadmap from "./pages/Roadmap";
+import PYQIntelligence from "./pages/PYQIntelligence";
+import Weightage from "./pages/Weightage";
+import TestBuilder from "./pages/TestBuilder";
+import Doubts from "./pages/Doubts";
+import Bookmarks from "./pages/Bookmarks";
+import Focus from "./pages/Focus";
+import PreparationPace from "./pages/PreparationPace";
+import TopicIntelligence from "./pages/TopicIntelligence";
 
 function AppContent() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -86,6 +105,18 @@ function AppContent() {
       "/achievements": "Achievements",
       "/notifications": "Notifications",
       "/study-timer": "Study Timer",
+      "/assistant": "AI Study Copilot",
+      "/ai-report": "AI Performance Report",
+      "/concepts": "Concept Library",
+      "/formulas": "Formula Book",
+      "/roadmap": "GATE Roadmap",
+      "/pyq-intelligence": "PYQ Intelligence",
+      "/weightage": "Weightage Analysis",
+      "/test-builder": "Custom Test Builder",
+      "/doubts": "Doubt Notebook",
+      "/bookmarks": "Bookmarks",
+      "/focus": "Focus Mode",
+      "/preparation-pace": "Preparation Pace",
     };
 
     // Mock test routes
@@ -331,6 +362,90 @@ function AppContent() {
               path="/study-timer"
               element={<StudyTimer />}
             />
+
+            {/* AI Study Copilot */}
+            <Route
+              path="/assistant"
+              element={<Assistant />}
+            />
+
+            {/* AI Report */}
+            <Route
+              path="/ai-report"
+              element={<AIReport />}
+            />
+
+            {/* Concept Library */}
+            <Route
+              path="/concepts"
+              element={<Concepts />}
+            />
+
+            {/* Concept Detail */}
+            <Route
+              path="/concepts/:subject/:topic"
+              element={<ConceptDetail />}
+            />
+
+            {/* Formula Book */}
+            <Route
+              path="/formulas"
+              element={<Formulas />}
+            />
+
+            {/* Roadmap */}
+            <Route
+              path="/roadmap"
+              element={<Roadmap />}
+            />
+
+            {/* PYQ Intelligence */}
+            <Route
+              path="/pyq-intelligence"
+              element={<PYQIntelligence />}
+            />
+
+            {/* Weightage */}
+            <Route
+              path="/weightage"
+              element={<Weightage />}
+            />
+
+            {/* Custom Test Builder */}
+            <Route
+              path="/test-builder"
+              element={<TestBuilder />}
+            />
+
+            {/* Doubt Notebook */}
+            <Route
+              path="/doubts"
+              element={<Doubts />}
+            />
+
+            {/* Bookmarks */}
+            <Route
+              path="/bookmarks"
+              element={<Bookmarks />}
+            />
+
+            {/* Focus Mode */}
+            <Route
+              path="/focus"
+              element={<Focus />}
+            />
+
+            {/* Preparation Pace */}
+            <Route
+              path="/preparation-pace"
+              element={<PreparationPace />}
+            />
+
+            {/* Topic Intelligence */}
+            <Route
+              path="/topic-intelligence/:topicId"
+              element={<TopicIntelligence />}
+            />
           </Routes>
         </main>
       </div>
@@ -350,11 +465,21 @@ function App() {
             <NotificationProvider>
               <StudySessionProvider>
                 <MistakesProvider>
-                  <ToastProvider>
-                    <Router>
-                      <AppContent />
-                    </Router>
-                  </ToastProvider>
+                  <BookmarkProvider>
+                    <DoubtProvider>
+                      <AIProvider>
+                        <ConceptProvider>
+                          <CustomTestProvider>
+                            <ToastProvider>
+                              <Router>
+                                <AppContent />
+                              </Router>
+                            </ToastProvider>
+                          </CustomTestProvider>
+                        </ConceptProvider>
+                      </AIProvider>
+                    </DoubtProvider>
+                  </BookmarkProvider>
                 </MistakesProvider>
               </StudySessionProvider>
             </NotificationProvider>
