@@ -11,6 +11,13 @@ import {
   CheckCircle2,
   Play,
 } from "lucide-react";
+import { useGamification } from "../context/GamificationContext";
+import { useRevision } from "../context/RevisionContext";
+import { useStudySession } from "../context/StudySessionContext";
+import XPProgress from "../components/gamification/XPProgress";
+import SmartStudyCard from "../components/study/SmartStudyCard";
+import ContinueLearning from "../components/study/ContinueLearning";
+import ChallengeCard from "../components/gamification/ChallengeCard";
 
 import {
   AreaChart,
@@ -108,6 +115,16 @@ function Dashboard() {
   );
 
   const [tasks, setTasks] = useState(initialTasks);
+  
+  const { gamification, getCurrentLevelInfo, getXPToNextLevel, getLevelProgress } = useGamification();
+  const { getDueToday } = useRevision();
+  const { getStudyActivityCalendar, studySessions } = useStudySession();
+
+  const currentLevelInfo = getCurrentLevelInfo();
+  const xpToNextLevel = getXPToNextLevel();
+  const levelProgress = getLevelProgress();
+  const dueToday = getDueToday();
+  const calendarData = getStudyActivityCalendar(90);
 
   function getTimeRemaining() {
     const now = new Date();
@@ -172,7 +189,7 @@ function Dashboard() {
           </p>
 
           <h1 className="text-2xl font-bold tracking-tight text-slate-900 dark:text-slate-100 sm:text-3xl">
-            Good afternoon, Ravi 👋
+            Good afternoon, Student 👋
           </h1>
 
           <p className="mt-1 text-sm text-slate-500 dark:text-slate-400 sm:text-base">
@@ -270,15 +287,15 @@ function Dashboard() {
             icon={<Flame size={21} />}
             iconStyle="bg-orange-50 text-orange-600"
             title="Study Streak"
-            value="15"
-            subtitle="days"
+            value={studySessions.studyDaysThisMonth || 0}
+            subtitle="days this month"
           />
 
           <StatCard
             icon={<Target size={21} />}
             iconStyle="bg-blue-50 text-blue-600"
             title="Questions Solved"
-            value="847"
+            value={gamification.questionsSolved || 0}
             subtitle="questions"
           />
 
@@ -286,18 +303,44 @@ function Dashboard() {
             icon={<FileText size={21} />}
             iconStyle="bg-purple-50 text-purple-600"
             title="Mock Tests"
-            value="12"
+            value={gamification.mockTestsCompleted || 0}
             subtitle="completed"
           />
 
           <StatCard
             icon={<TrendingUp size={21} />}
             iconStyle="bg-green-50 text-green-600"
-            title="Overall Progress"
-            value="52"
-            subtitle="% completed"
+            title="Total XP"
+            value={gamification.totalXP || 0}
+            subtitle="XP earned"
           />
 
+        </section>
+
+        {/* =====================================
+            STAGE 6 WIDGETS
+        ====================================== */}
+        <section className="mb-6 grid grid-cols-1 gap-4 lg:grid-cols-2 xl:grid-cols-4">
+          {/* XP Progress */}
+          <XPProgress
+            currentXP={gamification.currentXP}
+            totalXP={gamification.totalXP}
+            xpToNextLevel={xpToNextLevel}
+            levelProgress={levelProgress}
+            currentLevelInfo={currentLevelInfo}
+          />
+
+          {/* Smart Study Recommendation */}
+          <SmartStudyCard />
+
+          {/* Continue Learning */}
+          <ContinueLearning />
+
+          {/* Daily Challenge */}
+          <ChallengeCard
+            challenge={gamification.dailyChallenge}
+            type="daily"
+          />
         </section>
 
         {/* =====================================
@@ -306,21 +349,21 @@ function Dashboard() {
         <section className="mb-6 grid grid-cols-1 gap-6 xl:grid-cols-2">
 
           {/* Subject Progress */}
-          <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+          <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-700 dark:bg-slate-800">
             <div className="mb-5 flex items-center justify-between">
               <div>
-                <h2 className="text-lg font-bold text-slate-900">
+                <h2 className="text-lg font-bold text-slate-900 dark:text-slate-100">
                   Subject Progress
                 </h2>
 
-                <p className="mt-1 text-sm text-slate-500">
+                <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
                   Track your preparation
                 </p>
               </div>
 
               <Link
                 to="/subjects"
-                className="text-sm font-semibold text-blue-600 hover:text-blue-800"
+                className="text-sm font-semibold text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300"
               >
                 View all
               </Link>
@@ -330,25 +373,25 @@ function Dashboard() {
               {subjects.map((subject) => (
                 <div key={subject.name}>
                   <div className="mb-2 flex items-center justify-between">
-                    <span className="text-sm font-medium text-slate-700">
+                    <span className="text-sm font-medium text-slate-700 dark:text-slate-300">
                       {subject.name}
                     </span>
 
-                    <span className="text-xs font-semibold text-slate-500">
+                    <span className="text-xs font-semibold text-slate-500 dark:text-slate-400">
                       {subject.progress}%
                     </span>
                   </div>
 
-                  <div className="h-2 overflow-hidden rounded-full bg-slate-100">
+                  <div className="h-2 overflow-hidden rounded-full bg-slate-100 dark:bg-slate-700">
                     <div
-                      className="h-full rounded-full bg-blue-600 transition-all duration-700"
+                      className="h-full rounded-full bg-blue-600 transition-all duration-700 dark:bg-blue-500"
                       style={{
                         width: `${subject.progress}%`,
                       }}
                     />
                   </div>
 
-                  <p className="mt-1 text-xs text-slate-400">
+                  <p className="mt-1 text-xs text-slate-400 dark:text-slate-500">
                     {subject.topics}
                   </p>
                 </div>
@@ -357,13 +400,13 @@ function Dashboard() {
           </div>
 
           {/* Weekly Progress */}
-          <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+          <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-700 dark:bg-slate-800">
             <div className="mb-5">
-              <h2 className="text-lg font-bold text-slate-900">
+              <h2 className="text-lg font-bold text-slate-900 dark:text-slate-100">
                 Weekly Study Progress
               </h2>
 
-              <p className="mt-1 text-sm text-slate-500">
+              <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
                 Your study hours this week
               </p>
             </div>
@@ -440,15 +483,15 @@ function Dashboard() {
         <section className="grid grid-cols-1 gap-6 xl:grid-cols-3">
 
           {/* Today's Tasks */}
-          <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm xl:col-span-2">
+          <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm xl:col-span-2 dark:border-slate-700 dark:bg-slate-800">
 
             <div className="mb-5 flex items-center justify-between">
               <div>
-                <h2 className="text-lg font-bold text-slate-900">
+                <h2 className="text-lg font-bold text-slate-900 dark:text-slate-100">
                   Today's Tasks
                 </h2>
 
-                <p className="mt-1 text-sm text-slate-500">
+                <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
                   Complete your daily targets
                 </p>
               </div>
@@ -464,13 +507,13 @@ function Dashboard() {
                 <button
                   key={task.id}
                   onClick={() => toggleTask(task.id)}
-                  className="flex w-full items-center gap-4 rounded-xl border border-slate-100 p-4 text-left transition hover:border-blue-100 hover:bg-blue-50/40"
+                  className="flex w-full items-center gap-4 rounded-xl border border-slate-100 p-4 text-left transition hover:border-blue-100 hover:bg-blue-50/40 dark:border-slate-700 dark:hover:bg-blue-900/20"
                 >
                   <div
                     className={`flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full border-2 ${
                       task.completed
                         ? "border-green-500 bg-green-500 text-white"
-                        : "border-slate-300"
+                        : "border-slate-300 dark:border-slate-600"
                     }`}
                   >
                     {task.completed && (
@@ -482,19 +525,19 @@ function Dashboard() {
                     <p
                       className={`text-sm font-medium ${
                         task.completed
-                          ? "text-slate-400 line-through"
-                          : "text-slate-800"
+                          ? "text-slate-400 line-through dark:text-slate-500"
+                          : "text-slate-800 dark:text-slate-100"
                       }`}
                     >
                       {task.title}
                     </p>
 
                     <div className="mt-1 flex items-center gap-3">
-                      <span className="text-xs text-blue-600">
+                      <span className="text-xs text-blue-600 dark:text-blue-400">
                         {task.subject}
                       </span>
 
-                      <span className="flex items-center gap-1 text-xs text-slate-400">
+                      <span className="flex items-center gap-1 text-xs text-slate-400 dark:text-slate-500">
                         <Clock size={12} />
                         {task.time}
                       </span>
@@ -506,13 +549,13 @@ function Dashboard() {
           </div>
 
           {/* Quick Actions */}
-          <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+          <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-700 dark:bg-slate-800">
 
-            <h2 className="text-lg font-bold text-slate-900">
+            <h2 className="text-lg font-bold text-slate-900 dark:text-slate-100">
               Quick Actions
             </h2>
 
-            <p className="mt-1 text-sm text-slate-500">
+            <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
               Jump back into your preparation
             </p>
 
@@ -533,17 +576,17 @@ function Dashboard() {
               />
 
               <QuickAction
+                to="/revision"
+                icon={<Flame size={19} />}
+                title="Revision Center"
+                description="Review topics"
+              />
+
+              <QuickAction
                 to="/mock-tests"
                 icon={<FileText size={19} />}
                 title="Take Mock Test"
                 description="Test your preparation"
-              />
-
-              <QuickAction
-                to="/planner"
-                icon={<Clock size={19} />}
-                title="Study Planner"
-                description="Plan your day"
               />
 
             </div>
@@ -583,20 +626,20 @@ function StatCard({
   subtitle,
 }) {
   return (
-    <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-md">
+    <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-md dark:border-slate-700 dark:bg-slate-800">
 
       <div className="flex items-center justify-between">
         <div>
-          <p className="text-sm text-slate-500">
+          <p className="text-sm text-slate-500 dark:text-slate-400">
             {title}
           </p>
 
           <div className="mt-2 flex items-baseline gap-1">
-            <span className="text-2xl font-bold text-slate-900">
+            <span className="text-2xl font-bold text-slate-900 dark:text-slate-100">
               {value}
             </span>
 
-            <span className="text-xs text-slate-400">
+            <span className="text-xs text-slate-400 dark:text-slate-500">
               {subtitle}
             </span>
           </div>
@@ -625,25 +668,25 @@ function QuickAction({
   return (
     <Link
       to={to}
-      className="group flex items-center gap-3 rounded-xl border border-slate-100 p-3 transition-all hover:border-blue-100 hover:bg-blue-50"
+      className="group flex items-center gap-3 rounded-xl border border-slate-100 p-3 transition-all hover:border-blue-100 hover:bg-blue-50 dark:border-slate-700 dark:hover:bg-blue-900/20"
     >
-      <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-xl bg-blue-50 text-blue-600 transition group-hover:bg-blue-600 group-hover:text-white">
+      <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-xl bg-blue-50 text-blue-600 transition group-hover:bg-blue-600 group-hover:text-white dark:bg-blue-900/30 dark:text-blue-400 dark:group-hover:bg-blue-600 dark:group-hover:text-white">
         {icon}
       </div>
 
       <div className="min-w-0 flex-1">
-        <p className="text-sm font-semibold text-slate-800">
+        <p className="text-sm font-semibold text-slate-800 dark:text-slate-100">
           {title}
         </p>
 
-        <p className="mt-0.5 text-xs text-slate-400">
+        <p className="mt-0.5 text-xs text-slate-400 dark:text-slate-500">
           {description}
         </p>
       </div>
 
       <ArrowRight
         size={17}
-        className="text-slate-300 transition group-hover:translate-x-1 group-hover:text-blue-600"
+        className="text-slate-300 transition group-hover:translate-x-1 group-hover:text-blue-600 dark:text-slate-600 dark:group-hover:text-blue-400"
       />
     </Link>
   );

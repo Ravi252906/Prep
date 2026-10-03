@@ -45,13 +45,41 @@ const Sidebar = ({
       icon: "Calendar",
     },
     {
-      path: "/notes",
-      label: "Notes",
-      icon: "StickyNote",
+      path: "/revision",
+      label: "Revision Center",
+      icon: "RotateCcw",
+    },
+    {
+      path: "/mistakes",
+      label: "Mistake Book",
+      icon: "AlertTriangle",
+    },
+  ];
+
+  const gamificationNavItems = [
+    {
+      path: "/achievements",
+      label: "Achievements",
+      icon: "Award",
+    },
+    {
+      path: "/study-timer",
+      label: "Study Timer",
+      icon: "Timer",
+    },
+    {
+      path: "/notifications",
+      label: "Notifications",
+      icon: "Bell",
     },
   ];
 
   const bottomNavItems = [
+    {
+      path: "/notes",
+      label: "Notes",
+      icon: "StickyNote",
+    },
     {
       path: "/settings",
       label: "Settings",
@@ -349,6 +377,12 @@ const Sidebar = ({
           <NavGroup
             title="Analysis"
             items={analysisNavItems}
+            isCollapsed={isCollapsed}
+          />
+
+          <NavGroup
+            title="Gamification"
+            items={gamificationNavItems}
             isCollapsed={isCollapsed}
           />
         </nav>

@@ -1,16 +1,16 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Search, Bell, User, ChevronDown, X, Settings, LogIn } from 'lucide-react';
+import { Search, User, ChevronDown, X, Settings, LogIn } from 'lucide-react';
 import Badge from './ui/Badge';
 import { useSettings } from '../context/SettingsContext';
 import AuthModal from './ui/AuthModal';
+import NotificationBell from './notifications/NotificationBell';
 
 const Navbar = ({ onMenuClick, title, breadcrumbs }) => {
   const navigate = useNavigate();
   const { user, isAuthenticated, signOut } = useSettings();
   const [searchOpen, setSearchOpen] = useState(false);
   const [profileOpen, setProfileOpen] = useState(false);
-  const [notificationOpen, setNotificationOpen] = useState(false);
   const [authModalOpen, setAuthModalOpen] = useState(false);
   const [authMode, setAuthMode] = useState('signin');
 
@@ -98,40 +98,7 @@ const Navbar = ({ onMenuClick, title, breadcrumbs }) => {
         {/* Right side */}
         <div className="flex items-center gap-2">
           {/* Notifications */}
-          <div className="relative">
-            <button
-              onClick={() => setNotificationOpen(!notificationOpen)}
-              className="p-2 hover:bg-gray-100 rounded-lg transition-colors relative"
-            >
-              <Bell className="w-5 h-5 text-gray-600" />
-              <Badge variant="error" size="sm" className="absolute -top-1 -right-1 px-1.5 py-0.5">
-                3
-              </Badge>
-            </button>
-
-            {/* Notification dropdown */}
-            {notificationOpen && (
-              <div className="absolute right-0 top-full mt-2 w-80 bg-white dark:bg-slate-800 rounded-xl shadow-xl border border-gray-200 dark:border-slate-700 py-2 z-50 animate-fade-in">
-                <div className="px-4 py-2 border-b border-gray-100 dark:border-slate-700">
-                  <h3 className="font-semibold text-gray-900 dark:text-slate-100 text-sm">Notifications</h3>
-                </div>
-                <div className="max-h-64 overflow-y-auto">
-                  <div className="px-4 py-3 hover:bg-gray-50 dark:hover:bg-slate-700 cursor-pointer">
-                    <p className="text-sm text-gray-900 dark:text-slate-100">Mock Test #12 results are available</p>
-                    <p className="text-xs text-gray-500 dark:text-slate-400 mt-1">2 hours ago</p>
-                  </div>
-                  <div className="px-4 py-3 hover:bg-gray-50 dark:hover:bg-slate-700 cursor-pointer">
-                    <p className="text-sm text-gray-900 dark:text-slate-100">New study material added for DBMS</p>
-                    <p className="text-xs text-gray-500 dark:text-slate-400 mt-1">5 hours ago</p>
-                  </div>
-                  <div className="px-4 py-3 hover:bg-gray-50 dark:hover:bg-slate-700 cursor-pointer">
-                    <p className="text-sm text-gray-900 dark:text-slate-100">Weekly goal achieved! 🎉</p>
-                    <p className="text-xs text-gray-500 dark:text-slate-400 mt-1">1 day ago</p>
-                  </div>
-                </div>
-              </div>
-            )}
-          </div>
+          <NotificationBell />
 
           {/* Profile / Sign In */}
           <div className="relative">

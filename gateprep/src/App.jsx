@@ -9,6 +9,11 @@ import {
 // Context Providers
 import { SettingsProvider } from "./context/SettingsContext";
 import { AnalyticsProvider } from "./context/AnalyticsContext";
+import { RevisionProvider } from "./context/RevisionContext";
+import { GamificationProvider } from "./context/GamificationContext";
+import { NotificationProvider } from "./context/NotificationContext";
+import { StudySessionProvider } from "./context/StudySessionContext";
+import { MistakesProvider } from "./context/MistakesContext";
 import { ToastProvider } from "./components/ui/Toast";
 
 // Layout Components
@@ -30,6 +35,12 @@ import Planner from "./pages/Planner";
 import Notes from "./pages/Notes";
 import Settings from "./pages/Settings";
 import Profile from "./pages/Profile";
+import Revision from "./pages/Revision";
+import RevisionSession from "./pages/RevisionSession";
+import Mistakes from "./pages/Mistakes";
+import Achievements from "./pages/Achievements";
+import Notifications from "./pages/Notifications";
+import StudyTimer from "./pages/StudyTimer";
 
 function AppContent() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -70,6 +81,11 @@ function AppContent() {
       "/notes": "Notes",
       "/settings": "Settings",
       "/profile": "Profile",
+      "/revision": "Revision Center",
+      "/mistakes": "Mistake Book",
+      "/achievements": "Achievements",
+      "/notifications": "Notifications",
+      "/study-timer": "Study Timer",
     };
 
     // Mock test routes
@@ -279,6 +295,42 @@ function AppContent() {
               path="/profile"
               element={<Profile />}
             />
+
+            {/* Revision Center */}
+            <Route
+              path="/revision"
+              element={<Revision />}
+            />
+
+            {/* Revision Session */}
+            <Route
+              path="/revision/:topicId"
+              element={<RevisionSession />}
+            />
+
+            {/* Mistake Book */}
+            <Route
+              path="/mistakes"
+              element={<Mistakes />}
+            />
+
+            {/* Achievements */}
+            <Route
+              path="/achievements"
+              element={<Achievements />}
+            />
+
+            {/* Notifications */}
+            <Route
+              path="/notifications"
+              element={<Notifications />}
+            />
+
+            {/* Study Timer */}
+            <Route
+              path="/study-timer"
+              element={<StudyTimer />}
+            />
           </Routes>
         </main>
       </div>
@@ -293,11 +345,21 @@ function App() {
   return (
     <SettingsProvider>
       <AnalyticsProvider>
-        <ToastProvider>
-          <Router>
-            <AppContent />
-          </Router>
-        </ToastProvider>
+        <RevisionProvider>
+          <GamificationProvider>
+            <NotificationProvider>
+              <StudySessionProvider>
+                <MistakesProvider>
+                  <ToastProvider>
+                    <Router>
+                      <AppContent />
+                    </Router>
+                  </ToastProvider>
+                </MistakesProvider>
+              </StudySessionProvider>
+            </NotificationProvider>
+          </GamificationProvider>
+        </RevisionProvider>
       </AnalyticsProvider>
     </SettingsProvider>
   );
